@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Teórico de Helicóptero - REAL RP</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            background: url('https://i.pinimg.com/736x/06/87/a3/0687a3300a6766da8ec4e00b1429312d.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(88, 28, 135, 0.85) 0%, rgba(26, 11, 46, 0.9) 100%);
+            z-index: -1;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #e0c3fc 50%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .header p { font-size: 1.2rem; opacity: 0.95; color: #f3e8ff; font-weight: 500; }
+        .heli-icon { font-size: 4rem; margin-bottom: 10px; }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            margin-bottom: 20px;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #581c87;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #9333ea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            background: #000;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-fallback {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .video-fallback a {
+            color: #c084fc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-left: 5px solid #9333ea;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .info-box h3 { color: #581c87; margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; color: #444; line-height: 1.8; }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .warning-box h3 { color: #92400e; margin-bottom: 10px; }
+        .warning-box ul { margin-left: 20px; color: #78350f; line-height: 1.8; }
+        
+        .danger-box {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .danger-box h3 { color: #991b1b; margin-bottom: 10px; }
+        .danger-box ul { margin-left: 20px; color: #7f1d1d; line-height: 1.8; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; font-size: 0.95rem; }
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 0 4px rgba(147, 51, 234, 0.1);
+        }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+        
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #581c87 0%, #9333ea 100%);
+            color: white;
+            width: 100%;
+        }
+        
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.4); }
+        .btn-secondary { background: #6b7280; color: white; }
+        .btn-success { background: #10b981; color: white; }
+        .btn:disabled { background: #9ca3af; cursor: not-allowed; transform: none; }
+        
+        .hidden { display: none !important; }
+        
+        .quiz-box {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-left: 5px solid #9333ea;
+        }
+        
+        .quiz-header { display: flex; align-items: center; margin-bottom: 20px; }
+        
+        .quiz-number {
+            background: linear-gradient(135deg, #581c87 0%, #9333ea 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .quiz-question { font-weight: 600; color: #333; font-size: 1.1rem; line-height: 1.4; }
+        
+        .quiz-category {
+            display: inline-block;
+            background: #e9d5ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #581c87;
+            margin-left: auto;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .options-container { display: flex; flex-direction: column; gap: 10px; }
+        
+        .option-btn {
+            background: white;
+            border: 2px solid #e9d5ff;
+            border-radius: 10px;
+            padding: 15px 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            color: #495057;
+            line-height: 1.4;
+        }
+        
+        .option-btn:hover { border-color: #9333ea; background: #faf5ff; transform: translateX(5px); }
+        
+        .option-btn.selected {
+            background: linear-gradient(135deg, #581c87 0%, #9333ea 100%);
+            color: white;
+            border-color: #9333ea;
+        }
+        
+        .option-label { font-weight: 700; color: #9333ea; margin-right: 8px; }
+        .option-btn.selected .option-label { color: #fff; }
+        
+        .timer-blocked {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #ef4444;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .timer-blocked h2 { color: #991b1b; margin-bottom: 15px; }
+        .countdown { font-size: 2.5rem; font-weight: 700; color: #dc2626; font-family: monospace; }
+        
+        .certificado {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 3px solid #10b981;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .certificado h2 { color: #065f46; font-size: 2rem; margin-bottom: 20px; }
+        .certificado-icon { font-size: 5rem; margin-bottom: 20px; }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9d5ff;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #581c87, #9333ea); transition: width 0.3s ease; }
+        
+        .error-msg { color: #ef4444; font-size: 0.85rem; margin-top: 5px; display: none; }
+        .form-group.error input { border-color: #ef4444; }
+        .form-group.error .error-msg { display: block; }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active { background: white; color: #581c87; }
+        
+        .history-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .history-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .history-name { font-weight: 700; color: #333; font-size: 1.1rem; }
+        .history-date { color: #888; font-size: 0.85rem; }
+        .score-high { background: #d1fae5; color: #065f46; padding: 5px 15px; border-radius: 20px; font-weight: 700; }
+        .score-low { background: #fee2e2; color: #991b1b; padding: 5px 15px; border-radius: 20px; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="heli-icon">🚁</div>
+            <h1>REAL RP</h1>
+            <p>Curso Teórico de Pilotagem de Helicóptero</p>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" data-tab="curso">📚 Curso</button>
+            <button class="tab" data-tab="prova">📝 Prova</button>
+            <button class="tab" data-tab="historico">📋 Histórico</button>
+        </div>
+        
+        <div id="tab-curso">
+            <div class="card" id="cadastro-card">
+                <h2 class="section-title">👤 Cadastro do Aluno</h2>
+                
+                <div class="form-group" id="group-nome">
+                    <label>Nome Completo do Personagem *</label>
+                    <input type="text" id="nome" placeholder="Ex: João Silva">
+                    <span class="error-msg">Campo obrigatório</span>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group" id="group-id">
+                        <label>ID do Cidadão *</label>
+                        <input type="text" id="id-personagem" placeholder="Ex: 12345">
+                        <span class="error-msg">Campo obrigatório</span>
+                    </div>
+                    
+                    <div class="form-group" id="group-idade">
+                        <label>Idade *</label>
+                        <input type="number" id="idade" placeholder="Ex: 25" min="18" max="80">
+                        <span class="error-msg">Idade entre 18 e 80 anos</span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" id="btn-acessar-curso">
+                    Acessar Curso →
+                </button>
+            </div>
+            
+            <div class="card hidden" id="curso-content">
+                <h2 class="section-title">🎥 Vídeo Aula - Configuração do Controle</h2>
+                
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/Dgb-IoolCaY" 
+                            title="Curso de Helicóptero" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                    </iframe>
+                    <div class="video-fallback hidden" id="video-fallback">
+                        <div>
+                            <p style="font-size: 1.2rem; margin-bottom: 15px;">⚠️ Vídeo não pode ser reproduzido aqui</p>
+                            <p><a href="https://www.youtube.com/watch?v=Dgb-IoolCaY" target="_blank">
+                                📺 Clique aqui para assistir no YouTube
+                            </a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Dicas Importantes de Configuração</h3>
+                    <ul>
+                        <li><strong>Sensibilidade:</strong> Comece com valores baixos (20-30%) e aumente gradualmente</li>
+                        <li><strong>Deadzone:</strong> Configure entre 5-10% para evitar movimentos involuntários</li>
+                        <li><strong>Inversão de eixos:</strong> Verifique se precisa inverter o eixo (pitch)</li>
+                        <li><strong>Botões:</strong> Mapeie o acelerador em um gatilho analógico (SHIFT/CTRL)</li>
+                        <li><strong>Prática:</strong> Treine no modo livre antes de fazer missões</li>
+                    </ul>
+                </div>
+                
+                <div class="danger-box">
+                    <h3>🚨 Cuidados Críticos com o Helicóptero</h3>
+                    <ul>
+                        <li><strong>Altitude:</strong> Nunca voe abaixo de 50m em áreas urbanas</li>
+                        <li><strong>Velocidade:</strong> Reduza velocidade ao fazer curvas acentuadas</li>
+                        <li><strong>Combustível:</strong> Sempre verifique antes de decolar - helicóptero não plana!</li>
+                        <li><strong>Clima:</strong> Evite voar em tempestades ou ventos fortes</li>
+                        <li><strong>Pousos:</strong> Área deve ser plana, livre de obstáculos e com espaço para rotor</li>
+                        <li><strong>Autorotação:</strong> Se o motor falhar, mantenha calma e use a manobra de autorotação</li>
+                        <li><strong>Sobrecarga:</strong> Respeite o limite de passageiros e peso</li>
+                        <li><strong>Manutenção:</strong> Helicópteros exigem revisões mais frequentes que aviões</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3>📋 Checklist Pré-Voo</h3>
+                    <ul>
+                        <li>Combustível suficiente para o voo + reserva de 20%</li>
+                        <li>Controles respondendo corretamente (teste no solo)</li>
+                        <li>Rotor principal e cauda sem danos visíveis</li>
+                        <li>Área de decolagem livre de pessoas e objetos</li>
+                        <li>Clima adequado para voo visual (VFR)</li>
+                        <li>Rota planejada e alternativas de pouso</li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-primary" id="btn-ir-prova">
+                    Fazer Prova de Certificação →
+                </button>
+            </div>
+        </div>
+        
+        <div id="tab-prova" class="hidden">
+            <div class="card" id="prova-bloqueada">
+                <div class="timer-blocked">
+                    <h2>⏰ Acesso Bloqueado</h2>
+                    <p>Você já realizou o curso recentemente.</p>
+                    <p>Aguarde <span class="countdown" id="countdown">24:00:00</span> para refazer.</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                        Ou entre com outro ID para fazer o curso agora.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card hidden" id="prova-container">
+                <h2 class="section-title">📝 Prova de Certificação</h2>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress" style="width: 0%"></div>
+                </div>
+                
+                <p style="margin-bottom: 25px; color: #666;">
+                    Responda todas as questões corretamente para obter sua licença de piloto.
+                    <strong>Você precisa de 80% para passar.</strong>
+                </p>
+                
+                <div id="quiz-container"></div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 30px;">
+                    <button class="btn btn-secondary" id="btn-voltar-curso">← Voltar ao Curso</button>
+                    <button class="btn btn-primary" id="btn-finalizar-prova">
+                        Finalizar Prova
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card hidden" id="resultado-container">
+                <div id="resultado-content"></div>
+            </div>
+        </div>
+        
+        <div id="tab-historico" class="hidden">
+            <div class="card">
+                <h2 class="section-title">📚 Histórico de Certificações</h2>
+                <div id="history-list">
+                    <div style="text-align: center; padding: 40px; color: #888;">
+                        <h3>Nenhuma certificação registrada</h3>
+                        <p>Complete o curso para ver seu histórico aqui</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const bancoQuestoes = [
+            {
+                id: 1,
+                pergunta: "Qual é a altitude mínima recomendada para voar em áreas urbanas?",
+                categoria: "Segurança",
+                opcoes: [
+                    { texto: "10 metros", valor: 0 },
+                    { texto: "50 metros", valor: 2 },
+                    { texto: "100 metros", valor: 1 }
+                ]
+            },
+            {
+                id: 2,
+                pergunta: "O que fazer se o motor do helicóptero falhar em pleno voo?",
+                categoria: "Emergência",
+                opcoes: [
+                    { texto: "Puxar o paraquedas imediatamente", valor: 0 },
+                    { texto: "Realizar manobra de autorotação", valor: 2 },
+                    { texto: "Tentar religar o motor repetidamente", valor: 1 }
+                ]
+            },
+            {
+                id: 3,
+                pergunta: "Qual configuração é recomendada para a sensibilidade do controle iniciante?",
+                categoria: "Configuração",
+                opcoes: [
+                    { texto: "80-100% para resposta rápida", valor: 0 },
+                    { texto: "20-30% e aumentar gradualmente", valor: 2 },
+                    { texto: "50% fixo sempre", valor: 1 }
+                ]
+            },
+            {
+                id: 4,
+                pergunta: "O que é 'deadzone' no controle do helicóptero?",
+                categoria: "Configuração",
+                opcoes: [
+                    { texto: "Zona onde o helicóptero não pode voar", valor: 0 },
+                    { texto: "Área morta do analógico para evitar movimentos involuntários", valor: 2 },
+                    { texto: "Zona de pouso obrigatória", valor: 1 }
+                ]
+            },
+            {
+                id: 5,
+                pergunta: "Quanto de combustível de reserva é recomendado ter antes de decolar?",
+                categoria: "Planejamento",
+                opcoes: [
+                    { texto: "5% do tanque", valor: 0 },
+                    { texto: "20% do tanque", valor: 2 },
+                    { texto: "50% do tanque", valor: 1 }
+                ]
+            },
+            {
+                id: 6,
+                pergunta: "Em qual botão é recomendado mapear o acelerador?",
+                categoria: "Configuração",
+                opcoes: [
+                    { texto: "Botões A/B/X/Y", valor: 0 },
+                    { texto: "Gatilhos (SHIFT/CTRL)", valor: 2 },
+                    { texto: "Direcional (W/S)", valor: 1 }
+                ]
+            },
+            {
+                id: 7,
+                pergunta: "O que fazer antes de fazer uma curva acentuada?",
+                categoria: "Pilotagem",
+                opcoes: [
+                    { texto: "Aumentar a velocidade", valor: 0 },
+                    { texto: "Reduzir a velocidade", valor: 2 },
+                    { texto: "Mudar de altitude", valor: 1 }
+                ]
+            },
+            {
+                id: 8,
+                pergunta: "Por que helicópteros precisam de manutenção mais frequente que aviões?",
+                categoria: "Manutenção",
+                opcoes: [
+                    { texto: "Porque voam mais alto", valor: 0 },
+                    { texto: "Mais partes móveis e vibrações constantes", valor: 2 },
+                    { texto: "Porque são mais antigos", valor: 1 }
+                ]
+            },
+            {
+                id: 9,
+                pergunta: "O que é autorotação?",
+                categoria: "Conceitos",
+                opcoes: [
+                    { texto: "Voar em círculos", valor: 0 },
+                    { texto: "Técnica de pouso sem motor usando o fluxo de ar", valor: 2 },
+                    { texto: "Girar o helicóptero no próprio eixo", valor: 1 }
+                ]
+            },
+            {
+                id: 10,
+                pergunta: "Qual é o principal perigo de voar em tempestade?",
+                categoria: "Meteorologia",
+                opcoes: [
+                    { texto: "Chuva forte", valor: 1 },
+                    { texto: "Ventos instáveis e turbulência severa", valor: 2 },
+                    { texto: "Visibilidade reduzida apenas", valor: 0 }
+                ]
+            },
+            {
+                id: 11,
+                pergunta: "Onde deve ser feito o pouso de emergência?",
+                categoria: "Segurança",
+                opcoes: [
+                    { texto: "Qualquer lugar plano", valor: 1 },
+                    { texto: "Área plana, livre de obstáculos com espaço para o rotor", valor: 2 },
+                    { texto: "Sobre edifícios altos", valor: 0 }
+                ]
+            },
+            {
+                id: 12,
+                pergunta: "O que verificar no teste de controles no solo?",
+                categoria: "Checklist",
+                opcoes: [
+                    { texto: "Apenas se os botões fazem barulho", valor: 0 },
+                    { texto: "Se todos os eixos respondem corretamente e suavemente", valor: 2 },
+                    { texto: "Se o helicóptero liga", valor: 1 }
+                ]
+            },
+            {
+                id: 13,
+                pergunta: "Qual a função do rotor de cauda?",
+                categoria: "Conceitos",
+                opcoes: [
+                    { texto: "Aumentar a velocidade", valor: 0 },
+                    { texto: "Contrariar o torque do rotor principal e controlar direção", valor: 2 },
+                    { texto: "Fazer o helicóptero subir", valor: 1 }
+                ]
+            },
+            {
+                id: 14,
+                pergunta: "O que significa VFR?",
+                categoria: "Regulamentos",
+                opcoes: [
+                    { texto: "Very Fast Rotation", valor: 0 },
+                    { texto: "Visual Flight Rules (Regras de Voo Visual)", valor: 2 },
+                    { texto: "Vertical Flight Required", valor: 1 }
+                ]
+            },
+            {
+                id: 15,
+                pergunta: "Por que não se deve sobrecarregar o helicóptero?",
+                categoria: "Segurança",
+                opcoes: [
+                    { texto: "Gasta mais combustível", valor: 1 },
+                    { texto: "Compromete a capacidade de manobra e autorotação", valor: 2 },
+                    { texto: "Fica mais barulhento", valor: 0 }
+                ]
+            }
+        ];
+
+        let questoesSelecionadas = [];
+        let respostas = {};
+        let alunoAtual = null;
+        let historico = [];
+        let bloqueios = {};
+
+        try {
+            const savedHist = localStorage.getItem('heli_historico_realrp');
+            const savedBlock = localStorage.getItem('heli_bloqueios_realrp');
+            if (savedHist) historico = JSON.parse(savedHist);
+            if (savedBlock) bloqueios = JSON.parse(savedBlock);
+        } catch (e) {}
+
+        function verificarBloqueio(id) {
+            if (!bloqueios[id]) return false;
+            const agora = new Date().getTime();
+            return agora < bloqueios[id];
+        }
+
+        function getTempoRestante(id) {
+            if (!bloqueios[id]) return 0;
+            const agora = new Date().getTime();
+            return Math.max(0, bloqueios[id] - agora);
+        }
+
+        function formatarTempo(ms) {
+            const horas = Math.floor(ms / 3600000);
+            const minutos = Math.floor((ms % 3600000) / 60000);
+            const segundos = Math.floor((ms % 60000) / 1000);
+            return `${String(horas).padStart(2,'0')}:${String(minutos).padStart(2,'0')}:${String(segundos).padStart(2,'0')}`;
+        }
+
+        function atualizarCountdown() {
+            if (!alunoAtual) return;
+            const restante = getTempoRestante(alunoAtual.id);
+            document.querySelectorAll('.countdown').forEach(el => {
+                el.textContent = restante > 0 ? formatarTempo(restante) : "00:00:00";
+            });
+        }
+
+        setInterval(atualizarCountdown, 1000);
+
+        function acessarCurso() {
+            document.querySelectorAll('.form-group').forEach(g => g.classList.remove('error'));
+            
+            const nome = document.getElementById('nome').value.trim();
+            const id = document.getElementById('id-personagem').value.trim();
+            const idade = document.getElementById('idade').value;
+
+            let erro = false;
+            if (!nome) { document.getElementById('group-nome').classList.add('error'); erro = true; }
+            if (!id) { document.getElementById('group-id').classList.add('error'); erro = true; }
+            if (!idade || idade < 18 || idade > 80) { document.getElementById('group-idade').classList.add('error'); erro = true; }
+
+            if (erro) return;
+
+            alunoAtual = { nome, id, idade };
+
+            // Verificar se iframe carregou
+            setTimeout(() => {
+                const iframe = document.querySelector('iframe');
+                try {
+                    if (!iframe.contentWindow || iframe.contentWindow.length === 0) {
+                        document.getElementById('video-fallback').classList.remove('hidden');
+                    }
+                } catch(e) {
+                    document.getElementById('video-fallback').classList.remove('hidden');
+                }
+            }, 2000);
+
+            if (verificarBloqueio(id)) {
+                mostrarProvaBloqueada();
+            } else {
+                document.getElementById('cadastro-card').classList.add('hidden');
+                document.getElementById('curso-content').classList.remove('hidden');
+            }
+        }
+
+        function mostrarProvaBloqueada() {
+            document.getElementById('cadastro-card').classList.add('hidden');
+            document.getElementById('curso-content').classList.add('hidden');
+            document.getElementById('prova-bloqueada').classList.remove('hidden');
+            atualizarCountdown();
+            mostrarTab('prova');
+        }
+
+        function irParaProva() {
+            if (!alunoAtual) return;
+            
+            if (verificarBloqueio(alunoAtual.id)) {
+                mostrarProvaBloqueada();
+                return;
+            }
+
+            questoesSelecionadas = [...bancoQuestoes].sort(() => Math.random() - 0.5).slice(0, 10);
+            respostas = {};
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            
+            questoesSelecionadas.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-box';
+                div.innerHTML = `
+                    <div class="quiz-header">
+                        <div class="quiz-number">${idx + 1}</div>
+                        <div class="quiz-question">${q.pergunta}</div>
+                        <div class="quiz-category">${q.categoria}</div>
+                    </div>
+                    <div class="options-container" data-questao="${q.id}">
+                        ${q.opcoes.map((op, i) => `
+                            <button class="option-btn" data-valor="${op.valor}" data-idx="${i}">
+                                <span class="option-label">${['A','B','C'][i]})</span>
+                                ${op.texto}
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            document.querySelectorAll('.options-container').forEach(cont => {
+                const questaoId = parseInt(cont.dataset.questao);
+                cont.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const valor = parseInt(this.dataset.valor);
+                        respostas[questaoId] = valor;
+                        cont.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+                        atualizarProgresso();
+                    });
+                });
+            });
+
+            document.getElementById('prova-bloqueada').classList.add('hidden');
+            document.getElementById('prova-container').classList.remove('hidden');
+            document.getElementById('resultado-container').classList.add('hidden');
+            atualizarProgresso();
+            mostrarTab('prova');
+        }
+
+        function atualizarProgresso() {
+            const respondidas = Object.keys(respostas).length;
+            document.getElementById('progress').style.width = (respondidas / 10 * 100) + '%';
+        }
+
+        function finalizarProva() {
+            if (Object.keys(respostas).length < 10) {
+                alert('Responda todas as 10 questões!');
+                return;
+            }
+
+            const pontuacao = Object.values(respostas).reduce((a, b) => a + b, 0);
+            const percentual = (pontuacao / 20) * 100;
+            const aprovado = percentual >= 80;
+
+            bloqueios[alunoAtual.id] = new Date().getTime() + (24 * 60 * 60 * 1000);
+            try { localStorage.setItem('heli_bloqueios_realrp', JSON.stringify(bloqueios)); } catch (e) {}
+
+            const resultado = {
+                ...alunoAtual,
+                pontuacao,
+                percentual: Math.round(percentual),
+                aprovado,
+                data: new Date().toLocaleString('pt-BR'),
+                respostas: questoesSelecionadas.map(q => ({
+                    pergunta: q.pergunta,
+                    categoria: q.categoria,
+                    acertou: respostas[q.id] === 2
+                }))
+            };
+
+            historico.unshift(resultado);
+            try { localStorage.setItem('heli_historico_realrp', JSON.stringify(historico)); } catch (e) {}
+
+            mostrarResultado(resultado);
+        }
+
+        function mostrarResultado(resultado) {
+            let html = '';
+            
+            if (resultado.aprovado) {
+                html += `
+                    <div class="certificado">
+                        <div class="certificado-icon">🚁</div>
+                        <h2>✅ CERTIFICADO APROVADO</h2>
+                        <p style="font-size: 1.2rem; color: #065f46; margin-bottom: 10px;">
+                            <strong>${resultado.nome}</strong>
+                        </p>
+                        <p style="color: #047857;">ID: ${resultado.id} | Nota: ${resultado.percentual}%</p>
+                        <p style="margin-top: 15px; color: #059669;">Licença de Piloto de Helicóptero - REAL RP</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: #6b7280;">${resultado.data}</p>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="timer-blocked" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);">
+                        <h2>❌ REPROVADO</h2>
+                        <p>Você obteve <strong>${resultado.percentual}%</strong> (mínimo: 80%)</p>
+                        <p style="margin-top: 15px;">Estude mais e tente novamente em 24 horas.</p>
+                    </div>
+                `;
+            }
+
+            html += `
+                <div style="background: #f9fafb; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                    <h3 style="color: #581c87; margin-bottom: 15px;">Resumo da Prova:</h3>
+                    <p><strong>Acertos:</strong> ${resultado.respostas.filter(r => r.acertou).length}/10</p>
+                    <p><strong>Pontuação:</strong> ${resultado.pontuacao}/20</p>
+                    <p><strong>Status:</strong> ${resultado.aprovado ? 'APROVADO' : 'REPROVADO'}</p>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-secondary" onclick="location.reload()">Novo Aluno</button>
+                    <button class="btn btn-success" onclick="exportarResultado()">📄 Exportar</button>
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #fef3c7; border-radius: 10px; text-align: center;">
+                    <p style="color: #92400e;">
+                        ⏰ Próxima tentativa disponível em: <span class="countdown">24:00:00</span>
+                    </p>
+                </div>
+            `;
+
+            document.getElementById('resultado-content').innerHTML = html;
+            document.getElementById('prova-container').classList.add('hidden');
+            document.getElementById('resultado-container').classList.remove('hidden');
+            atualizarCountdown();
+            atualizarHistorico();
+        }
+
+        function exportarResultado() {
+            if (historico.length === 0) return;
+            const d = historico[0];
+            
+            let txt = `═══════════════════════════════════════\n`;
+            txt += `   REAL RP - CERTIFICADO DE PILOTO\n`;
+            txt += `   Curso de Helicóptero 🚁\n`;
+            txt += `═══════════════════════════════════════\n\n`;
+            txt += `ALUNO: ${d.nome}\n`;
+            txt += `ID: ${d.id}\n`;
+            txt += `DATA: ${d.data}\n\n`;
+            txt += `RESULTADO: ${d.aprovado ? 'APROVADO ✅' : 'REPROVADO ❌'}\n`;
+            txt += `PONTUAÇÃO: ${d.percentual}% (${d.pontuacao}/20)\n`;
+            txt += `ACERTOS: ${d.respostas.filter(r => r.acertou).length}/10\n\n`;
+            if (d.aprovado) {
+                txt += `LICENÇA DE PILOTO DE HELICÓPTERO CONCEDIDA\n`;
+                txt += `Válida no servidor REAL RP\n`;
+            }
+            txt += `\n═══════════════════════════════════════`;
+            
+            const blob = new Blob([txt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Certificado_Heli_${d.nome.replace(/\s+/g, '_')}_${d.id}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function atualizarHistorico() {
+            const container = document.getElementById('history-list');
+            if (historico.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #888;">
+                        <h3>Nenhuma certificação registrada</h3>
+                        <p>Complete o curso para ver seu histórico aqui</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = historico.map((h) => {
+                return `
+                    <div class="history-item">
+                        <div class="history-header">
+                            <span class="history-name">${h.nome} (ID: ${h.id})</span>
+                            <span class="${h.aprovado ? 'score-high' : 'score-low'}">${h.percentual}% - ${h.aprovado ? 'APROVADO' : 'REPROVADO'}</span>
+                        </div>
+                        <div class="history-date">${h.data}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function mostrarTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            
+            document.getElementById('tab-curso').classList.add('hidden');
+            document.getElementById('tab-prova').classList.add('hidden');
+            document.getElementById('tab-historico').classList.add('hidden');
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            
+            if (tab === 'historico') atualizarHistorico();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btn-acessar-curso').addEventListener('click', acessarCurso);
+            document.getElementById('btn-ir-prova').addEventListener('click', irParaProva);
+            document.getElementById('btn-voltar-curso').addEventListener('click', () => mostrarTab('curso'));
+            document.getElementById('btn-finalizar-prova').addEventListener('click', finalizarProva);
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => mostrarTab(tab.dataset.tab));
+            });
+            
+            atualizarHistorico();
+        });
+    </script>
+</body>
+</html>
